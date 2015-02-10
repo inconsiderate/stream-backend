@@ -1,0 +1,58 @@
+
+  <div id="site-wrapper">
+    <% if @user %>
+    <form class="logout dont-move pull-right" method="POST" action="/logout">
+        <button class="logout" method="POST" action="/logout" type="submit" style="border: 0; background: transparent">
+          <img src="/images/logout.png" width="40" height="40" alt="Logout" />
+        </button>
+      </form>
+      <a href="#" class="toggle-nav dont-move logout pull-right" id="big-sexy"><i class="fa fa-bars"></i>
+        <img src="/images/gear.png" width="40" height="40" alt="Settings" /></a>
+    <% end %>
+    <div id="site-canvas">
+     <% if @user %>
+      
+    <h1><div id="clock" class="clock"></div></h1>
+
+    <h1 id="greeting" class="greeting"><%= User.display_greeting(session[:user_id]) %></h1>
+    
+    <div id="links" class="centre list-item">
+      <div class="inner"></div>
+      <button method="GET" action="/links" id="next" type="submit">
+        <img src="/images/arrow-right.png" width="40" height="40" />
+      </button>
+      <button method="GET" action="/links" id="prev" type="submit">
+        <img src="/images/arrow-left.png" width="40" height="40" />
+      </button> 
+
+    </div>
+
+    <div id="site-menu">
+      <form class ="settings-box" method="POST" action="/settings">
+        <input class="username" value="<%= @user.background_url %>" type="text" id="urlfield" name="url" placeholder="Enter custom background URL"/>
+        <input class="username" value="<%= @user.greeting %>" type="text" id="greetingfield" name="greeting" placeholder="Enter your greeting"/>
+        <input class="username" value="<%= @user.font_colour %>" type="text" id="fontcolour" name="font_colour" placeholder="Enter font colour"/>  
+        <input name="submit" class="btn" type="submit" value="Send" />    
+      </form>
+    </div>
+  
+    <% else %>
+
+    <h1 id="login-greeting" class="greeting">Welcome to Stream</h1>
+
+    <div class="login-container">
+      <div class="signinbox">
+        <form class ="formclass" method="POST" action="/login">
+          <p class="field"><input name="email" placeholder="Email: " class="email" type="text" required />
+          <p class="field"><input name="password" placeholder="Password: " class="password" type="password" required />
+          <p class="field"><input name="submit" class="btn" type="submit" value="Login" />
+          <p class="newuser" style="text-align:right;"><a href="/new">new user?</a>
+        </form>
+      </div>
+    </div>
+
+    <% end %>
+
+  </div><!-- #site-canvas -->
+</div>
+  

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    application.css is where you put your styles
+  -->
+  <link rel="stylesheet" href="/stylesheets/application.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="/javascript/application.js"></script>
+  <script>
+  function startTime() {
+      var today=new Date();
+      var h=today.getHours();
+      h = ((h + 11) % 12 + 1);
+      var m=today.getMinutes();
+      var s=today.getSeconds();
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('clock').innerHTML = h+":"+m;
+      var t = setTimeout(function(){startTime()},500);
+  }
+
+  function checkTime(i) {
+      if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+  }
+
+  $(document).ready(function(){
+    startTime();
+  });
+  </script>
+
+<style type = "text/css">
+  body {
+    background: url("<% if @user == nil %>/images/newbackground.jpg<% else %><%= @user.background_url %><% end %>");
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: center center no-repeat;
+  }
+  *,
+  * a,
+  * a:hover,
+  * a:visited { 
+    color: <% if @user == nil %>white<% else %><%= @user.font_colour %><% end %>; 
+  }
+</style>
+
+  <title>Stream</title>
+</head>
+<container>
+
+  <body>
+
+
+    <%= yield %>
+    
+
+
+          <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/path/to/your/custom/power.js"></script>
+  </body>
+  
+</container>
+</html>
+
+
+
+
