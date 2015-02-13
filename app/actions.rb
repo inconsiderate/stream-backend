@@ -16,7 +16,7 @@ end
 
 post '/login' do
 	@user = User.find_by email: params[:email]
-	if @user && @user.password == params[:password]
+	if @user && (@user.password == params[:password])
 		session[:user_id] = @user.id
 		redirect '/'
 	else 
@@ -29,12 +29,10 @@ get '/new' do
 end
 
 post '/new' do 
-	@user = User.create(
-		username: params[:username],
-		email: params[:email],
-		password: params[:password]
-		)
-	@user.save!
+  @user = User.create!(
+		email: params[:email])
+  @user.password = params[:password]
+  @user.save!
 	session[:user_id] = @user.id
 	redirect '/'
 end
