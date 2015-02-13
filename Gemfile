@@ -10,6 +10,8 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
 
+gem 'bcrypt-ruby', '~> 3.1.5'
+
 gem 'puma'
 gem 'tux'
 
