@@ -1,7 +1,7 @@
 enable :sessions
 
 before do 
-	@user = session[:user_id] ? User.find(session[:user_id]) : nil
+	@user ||= User.find(session[:user_id]) if session[:user_id]
 end
 
 get '/' do
@@ -50,15 +50,19 @@ end
 #TODO: new links bypass last(5) 
 
 get '/links' do
-	if params[:pos].to_i >= Link.count
-		current_pos = params[:pos].to_i - 5
-	elsif params[:pos]
-		current_pos = params[:pos].to_i
-	else
-		current_pos = 0
+	if @user
+		if params[:pos].to_i >= Link.count
+			current_pos = params[:pos].to_i - 5
+		elsif params[:pos]
+			current_pos = params[:pos].to_i
+		else
+			current_pos = 0
+		end
+		@links = @user.links.limit(5).offset(current_pos)
+	 	@links.to_json 
+ 	else
+	 	redirect "/"
 	end
-	@links = @user.links.limit(5).offset(current_pos)
- 	@links.to_json 
 end
 
 delete '/remove' do
